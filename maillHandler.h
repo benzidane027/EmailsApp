@@ -45,8 +45,11 @@ public:
 protected:
     void run() override
     {
-        if (not this->isInit)
-            return;
+        if (not this->isInit){
+            qDebug() << "not init yet";
+             return;
+        }
+           
 
         qDebug() << "start sending **********";
 
