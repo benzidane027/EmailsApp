@@ -31,30 +31,32 @@ public:
         this->contentMessage = contentMessage;
         this->isInit = true;
     }
-    char *c_str()
+    vmime::string &str()
     {
         // for testing
-        char *resualt;
-        strcat(resualt, this->reciverMail.c_str());
-        strcat(resualt, this->subjectMessage.c_str());
-        strcat(resualt, this->contentMessage.c_str());
+        static vmime::string str;
+        str.append(this->reciverMail);
+        str.append(" || ");
+        str.append(this->subjectMessage);
+        str.append("||");
+        str.append(this->contentMessage);
 
-        return resualt;
+        return str;
     }
 
 protected:
     void run() override
     {
-        if (not this->isInit){
+        if (not this->isInit)
+        {
             qDebug() << "not init yet";
-             return;
+            return;
         }
-           
 
         qDebug() << "start sending **********";
 
         vmime::platform::setHandler<vmime::platforms::posix::posixHandler>();
-        vmime::shared_ptr<vmime::mailbox> mbox1 = vmime::make_shared<vmime::mailbox>(vmime::text("John Doe"), "john.doe@acme.com");
+        // vmime::shared_ptr<vmime::mailbox> mbox1 = vmime::make_shared<vmime::mailbox>(vmime::text("John Doe"), "john.doe@acme.com");
         vmime::shared_ptr<vmime::message> msg = vmime::make_shared<vmime::message>();
 
         vmime::shared_ptr<vmime::body> bdy = msg->getBody();
@@ -69,7 +71,7 @@ protected:
 
         // Append a Subject :field
         vmime::shared_ptr<vmime::headerField> subjectField = hfFactory->create(vmime::fields::SUBJECT);
-        subjectField->setValue(vmime::text("Message subject s"));
+        subjectField->setValue(this->subjectMessage);
         hdr->appendField(subjectField);
 
         // Append a From: field
@@ -80,7 +82,7 @@ protected:
         // Append a To: field
         vmime::shared_ptr<vmime::headerField> toField = hfFactory->create(vmime::fields::TO);
         vmime::shared_ptr<vmime::addressList> recipients = vmime::make_shared<vmime::addressList>();
-        recipients->appendAddress(vmime::make_shared<vmime::mailbox>("benzidane27@gmail.com"));
+        recipients->appendAddress(vmime::make_shared<vmime::mailbox>(this->reciverMail));
         // recipients->appendAddress(vmime::make_shared<vmime::mailbox>("toTwo@mail.org")) ;
         // recipients->appendAddress(vmime::make_shared<vmime::mailbox>("toThree@mail.org")) ;
 
@@ -89,7 +91,7 @@ protected:
         hdr->appendField(toField);
 
         // append message body content
-        bdy->setContents(vmime::make_shared<vmime::stringContentHandler>("This i s the text of your message"));
+        bdy->setContents(vmime::make_shared<vmime::stringContentHandler>(this->contentMessage));
 
         // create session
         vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
@@ -104,6 +106,36 @@ protected:
         tr->send(msg);
 
         qDebug() << "end sending **********";
+    }
+};
+
+class getMailThread : public QThread
+{
+    Q_OBJECT
+
+public:
+    getMailThread(QObject *parent = nullptr)
+        : QThread(parent)
+    {
+    }
+    void initMailThread(vmime::string reciverMail, vmime::string subjectMessage, vmime::string contentMessage)
+    {
+    }
+    vmime::string &str()
+    {
+        static vmime::string str;
+
+        return str;
+    }
+
+protected:
+    void run() override
+    {
+        
+
+        qDebug() << "start geting **********";
+
+        qDebug() << "end geting **********";
     }
 };
 

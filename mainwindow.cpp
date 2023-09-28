@@ -43,13 +43,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::sendMail()
 {
-    qDebug() << "send maile";
+    qDebug() << "send maile functuion";
     sendMailThread *th = new sendMailThread(this);
+    th->initMailThread("benzidane27@gmail.com","test sub","hi hello");
+    qDebug() <<th->str();
     th->start();
 }
 void MainWindow::getMails()
 {
-    qDebug() << "get mails";
+    qDebug() << "get mails functuion";
+    getMailThread *th = new getMailThread();
+    th->start();
+
 };
 void MainWindow::database()
 {
