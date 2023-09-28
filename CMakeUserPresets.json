@@ -1,0 +1,9 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "/home/rooot/Desktop/EmailsApp/build/CMakePresets.json"
+    ]
+}

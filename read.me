@@ -1,0 +1,33 @@
+**make sure to install **
+sudo apt install libfmt-dev          ==> fmt  library
+sudo apt-get install -y libpoco-dev  ==> poco library
+sudo apt-get install libcurl4-openssl-dev ==> libcurl
+
+
+to build  :
+conan profile detect --force
+conan install . --output-folder=build --build=missing
+cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+
+
+
+email some help:
+https://gist.github.com/akpoff/53ac391037ae2f2d376214eac4a23634
+some curl command example:
+    curl -u "email:pass" -n imap://host/INBOX -X "FETCH 150:161 (BODY)"
+    curl -u "email:pass"  -n imap://host -X 'STATUS INBOX (MESSAGES)
+    curl -u "email:pass" -n imap://host --mail-from from@mail.com --mail-rcpt to@mail.com --upload-file email.txt
+
+to build vmime in fedora use:
+    * sudo dnf install libgsasl.x86_64
+    * sudo dnf install libgsasl-devel.x86_64
+    * sudo dnf install sendmail.x86_64
+    * sudo dnf install libuuid.x86_64
+    * sudo dnf install libuuid-devel.x86_64
+    * sudo dnf install gnutls-devel.x86_64
+    * cd /path/to/vmime-build
+    * cmake -G "Unix Makefiles" /path/to/vmime-source (may you need to excute in src directory)
+    * cmake --build .
+    * sudo make install
