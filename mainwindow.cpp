@@ -97,7 +97,20 @@ void MainWindow::database()
 };
 void MainWindow::test()
 {
-    qDebug() << "test";
+    std::ostringstream oss;
+    int x=1;
+        Map map;
+        map.insert("id", "01");
+        map.insert("first_name", "amine");
+        map.insert("last_name", "ben");
+        map.insert("email", "ben@g.com");
+        map.insert("password", "123456");
+
+       User user =User::fromJson(map);
+
+    oss <<" hell " << user<< " d"; 
+   
+    qDebug() << user;
 };
 
 void MainWindow::CloseApp()

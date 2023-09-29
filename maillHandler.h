@@ -131,10 +131,39 @@ public:
 protected:
     void run() override
     {
-        
 
         qDebug() << "start geting **********";
+        vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
+        vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
 
+        vmime::shared_ptr<vmime::net::store> st = theSession->getStore(url);
+         st->getInfos();
+
+        st->setProperty("options.need-authentication", true);
+        st->setProperty("auth.username", Env::CONFIG_EMIAL);
+        st->setProperty("auth.password", Env::CONFIG_PASSWORD);
+        st->connect();
+
+        vmime::net::folder::path path;
+        path.appendComponent(vmime::net::folder::path::component("INBOX"));
+        vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
+        fld->open(vmime::net::folder::MODE_READ_WRITE);
+
+        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(162, 162));
+        fld->fetchMessages(allMessages, vmime::net::fetchAttributes::FLAGS | vmime::net::fetchAttributes::ENVELOPE);
+        // msg->getHeader()->hasField("to")
+        //msg->getParsedMessage()->getBody()->getContentType().generate();
+        //msg->getParsedMessage()->getBody()->getEncoding().generate()
+        for (auto msg : allMessages)
+        {        
+            fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
+            std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
+            //vmime::utility::outputStream* os;
+            
+             vmime::encoding utf=obj->getEncoding();
+            //obj->generate(os,utf);
+
+        }
         qDebug() << "end geting **********";
     }
 };

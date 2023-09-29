@@ -28,7 +28,7 @@ private:
     QSqlDatabase db;
     Database()
     {
-        qDebug()<<"one one";
+        qDebug() << "one one";
         std::filesystem::path Path = std::filesystem::current_path();
         std::string currentPath = Path.string();
         this->db = QSqlDatabase::addDatabase("QSQLITE", "conn01");
@@ -36,9 +36,9 @@ private:
     }
 
 public:
-    static Database& getInstance()
+    static Database &getInstance()
     {
-        static Database instance; 
+        static Database instance;
         return instance;
     }
     ~Database()
@@ -52,19 +52,17 @@ public:
     }
 };
 
-class AbstractModel{
-    //abbstraction class
+class AbstractModel
+{
+    // abbstraction class
 protected:
-
     bool has_beee_save;
 
-    virtual Map& toJson();
+    virtual Map &toJson();
     virtual bool save();
-    
-
 };
 
-class User 
+class User
 {
 private:
     QString id;
@@ -106,18 +104,19 @@ public:
     }
     bool save()
     {
-        
+
         Database &db = Database::getInstance();
         if (db.get_Db().open())
         {
-            db.get_Db().exec(QString::fromStdString(
-            "INSERT INTO User(first_name,last_name,email,password) VALUES('"+
-            this->first_name.toStdString() + "','"+
-            this->last_name.toStdString() + "','"+
-            this->email.toStdString() + "','"+
-            this->password.toStdString() + "'" + ");"
-            ));
-            this->has_beee_save=true;
+            std::ostringstream oss;
+            oss << "INSERT INTO User(first_name,last_name,email,password) VALUES('"
+                << this->first_name.toStdString() << "','"
+                << this->last_name.toStdString() << "','"
+                << this->email.toStdString() << "','"
+                << this->password.toStdString() << "'"
+                << ");";
+            db.get_Db().exec(QString::fromStdString(oss.str()));
+            this->has_beee_save = true;
         }
 
         return this->has_beee_save;
@@ -126,6 +125,22 @@ public:
     {
         User *user = new User(data);
         return *user;
+    }
+    friend QDebug operator<<(QDebug os, const User &u) 
+    {
+          os <<"\n";
+          os << "id \t\t:" << u.id << "\n";  
+          os << "email \t\t:" << u.email << "\n";
+          os << "first name \t:" << u.first_name << "\n";
+          os << "last name \t:" << u.last_name << "\n";
+          os << "password \t:" << u.password << "\n";
+          return os;
+           }
+
+    friend std::ostream &operator<<(std::ostream &os, User &u)
+    {
+        os << u.first_name.toStdString();
+        return os;
     }
 };
 
