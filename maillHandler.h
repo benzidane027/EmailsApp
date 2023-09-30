@@ -137,7 +137,7 @@ protected:
         vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
 
         vmime::shared_ptr<vmime::net::store> st = theSession->getStore(url);
-         st->getInfos();
+        
 
         st->setProperty("options.need-authentication", true);
         st->setProperty("auth.username", Env::CONFIG_EMIAL);
@@ -146,10 +146,11 @@ protected:
 
         vmime::net::folder::path path;
         path.appendComponent(vmime::net::folder::path::component("INBOX"));
+    
         vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
         fld->open(vmime::net::folder::MODE_READ_WRITE);
-
-        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(162, 162));
+        
+        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(162));
         fld->fetchMessages(allMessages, vmime::net::fetchAttributes::FLAGS | vmime::net::fetchAttributes::ENVELOPE);
         // msg->getHeader()->hasField("to")
         //msg->getParsedMessage()->getBody()->getContentType().generate();
@@ -158,12 +159,21 @@ protected:
         {        
             fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
             std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
-            //vmime::utility::outputStream* os;
+
+            vmime::utility::outputStreamAdapter out(std::cout);
+            obj->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+        
+        //    std::vector<std::shared_ptr<vmime::bodyPart>> bodyParts= msg->getParsedMessage()->getBody()->getPartList();
+        //    for (auto bodyPart: bodyParts){
+        //      qDebug()<< "\n############  start ##################\n";
+        //      qDebug()<<bodyPart->generate();
+        //      qDebug()<< "\n############  done ##################\n";
+        //    }
             
-             vmime::encoding utf=obj->getEncoding();
-            //obj->generate(os,utf);
 
         }
+
+        
         qDebug() << "end geting **********";
     }
 };
