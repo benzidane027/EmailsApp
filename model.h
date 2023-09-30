@@ -117,6 +117,7 @@ public:
                 << ");";
             db.get_Db().exec(QString::fromStdString(oss.str()));
             this->has_beee_save = true;
+            
         }
 
         return this->has_beee_save;
