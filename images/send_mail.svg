@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 500 500"
+   style="enable-background:new 0 0 500 500;"
+   xml:space="preserve"
+   id="svg43"
+   sodipodi:docname="send_mail.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs47" /><sodipodi:namedview
+   id="namedview45"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="1.178"
+   inkscape:cx="249.57555"
+   inkscape:cy="250"
+   inkscape:window-width="1600"
+   inkscape:window-height="792"
+   inkscape:window-x="1440"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg43" />
+<g
+   id="BACKGROUND">
+
+</g>
+<g
+   id="OBJECTS"
+   transform="matrix(2.7939153,0,0,2.7939153,-721.09188,-705.30618)">
+	<g
+   id="g40">
+		<g
+   id="g30">
+		<circle
+   transform="matrix(0.7071,-0.7071,0.7071,0.7071,-139.2512,346.1285)"
+   id="ellipse26"
+   cx="0"
+   cy="0"
+   r="0" />
+			<path
+   style="fill:#00afe5"
+   d="m 348.189,269.399 c 39.566,0 71.756,32.19 71.756,71.756 0,39.566 -32.19,71.756 -71.756,71.756 -39.566,0 -71.756,-32.19 -71.756,-71.756 -10e-4,-39.566 32.189,-71.756 71.756,-71.756 m 0,-4 c -41.839,0 -75.756,33.917 -75.756,75.756 0,41.839 33.917,75.756 75.756,75.756 41.839,0 75.756,-33.917 75.756,-75.756 0,-41.839 -33.917,-75.756 -75.756,-75.756 z"
+   id="path28" />
+		</g>
+		<g
+   id="g38">
+			<polygon
+   style="fill:#0094d4"
+   points="370.514,317.139 323.115,347.227 331.83,370.867 "
+   id="polygon32" />
+			<polygon
+   style="fill:#007aae"
+   points="352.366,353.793 332.785,352.48 331.95,371.105 "
+   id="polygon34" />
+			<path
+   style="fill:#00afe5"
+   d="m 379.968,308.064 -76.244,28.971 c -2.154,0.818 -2.097,3.885 0.086,4.623 l 19.662,6.644 44.773,-28.894 -35.46,33.072 27.605,20.949 c 2.872,2.179 7.036,0.714 7.91,-2.783 l 14.922,-59.69 c 0.483,-1.926 -1.399,-3.597 -3.254,-2.892 z"
+   id="path36" />
+		</g>
+	</g>
+
+</g>
+</svg>

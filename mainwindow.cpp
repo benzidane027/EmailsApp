@@ -7,7 +7,8 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QString>
-
+#include <QPropertyAnimation>
+#include <QGraphicsRectItem>
 #include <regex>
 #include <iostream>
 
@@ -30,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
     custom->setStack(this->ui->stackedWidget);
     custom->setGeometry(230, 90, 50, 20);
 
-    //button for test
+    QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(test()));
+    // button for test
     QObject::connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendMail()));
     QObject::connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(getMails()));
     QObject::connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(database()));
@@ -45,8 +47,8 @@ void MainWindow::sendMail()
 {
     qDebug() << "send maile functuion";
     sendMailThread *th = new sendMailThread(this);
-    th->initMailThread("benzidane27@gmail.com","test sub","hi hello");
-    qDebug() <<th->str();
+    th->initMailThread("benzidane27@gmail.com", "test sub", "hi hello");
+    qDebug() << th->str();
     th->start();
 }
 void MainWindow::getMails()
@@ -54,11 +56,11 @@ void MainWindow::getMails()
     qDebug() << "get mails functuion";
     getMailThread *th = new getMailThread();
     th->start();
-
 };
 void MainWindow::database()
 {
     qDebug() << "database";
+
     /*
   ////database connection////
    Database &db = Database::getInstance();
@@ -97,20 +99,29 @@ void MainWindow::database()
 };
 void MainWindow::test()
 {
-    std::ostringstream oss;
-    int x=1;
-        Map map;
-        map.insert("id", "01");
-        map.insert("first_name", "amine");
-        map.insert("last_name", "ben");
-        map.insert("email", "ben@g.com");
-        map.insert("password", "123456");
 
-       User user =User::fromJson(map);
+    QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "pos",this);
 
-    oss <<" hell " << user<< " d"; 
-   
-    qDebug() << user;
+    animation->setDuration(1000);
+    animation->setStartValue(0);
+    animation->setEndValue(360);
+    animation->start(QPropertyAnimation::DeleteWhenStopped);
+
+    // std::ostringstream oss;
+    // int x = 1;
+    // Map map;
+    // map.insert("id", "01");
+    // map.insert("first_name", "amine");
+    // map.insert("last_name", "ben");
+    // map.insert("email", "ben@g.com");
+    // map.insert("password", "123456");
+
+    // User user = User::fromJson(map);
+
+    // oss << " hell " << user << " d";
+
+    // qDebug() << user;
+    qDebug()<< "hello how are you";
 };
 
 void MainWindow::CloseApp()

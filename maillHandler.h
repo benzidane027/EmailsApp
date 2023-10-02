@@ -165,10 +165,10 @@ protected:
                 const vmime::textPart &part = *parser.getTextPartAt(i);
                 qDebug() << "\n######\n"
                          << part.getType().generate() << "\n######\n";
-                         
+
                 if (part.getType().getSubType() == vmime::mediaTypes::TEXT_HTML)
                 {
-                    
+
                     part.getText().get()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
                 }
                 else

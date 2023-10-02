@@ -1,9 +1,10 @@
-
 <RCC>
     <qresource prefix="/">
         <file>images/login_image.svg</file>
         <file>images/wave.svg</file>
         <file>images/login_image_02.svg</file>
         <file>images/mail_image_01.svg</file>
+        <file>images/send_mail.svg</file>
+        <file>images/setting-icon.svg</file>
     </qresource>
 </RCC>
