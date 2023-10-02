@@ -100,7 +100,7 @@ void MainWindow::database()
 void MainWindow::test()
 {
 
-    QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "pos",this);
+    QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "rotation",this);
 
     animation->setDuration(1000);
     animation->setStartValue(0);
