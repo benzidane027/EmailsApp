@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     custom->setStack(this->ui->stackedWidget);
     custom->setGeometry(230, 90, 50, 20);
 
-    QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(test()));
+    //QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(test()));
     // button for test
     QObject::connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendMail()));
     QObject::connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(getMails()));

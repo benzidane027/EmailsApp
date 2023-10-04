@@ -6,5 +6,6 @@
         <file>images/mail_image_01.svg</file>
         <file>images/send_mail.svg</file>
         <file>images/setting-icon.svg</file>
+        <file>images/person-profile.svg</file>
     </qresource>
 </RCC>
