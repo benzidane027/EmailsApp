@@ -117,7 +117,7 @@ public:
                 << ");";
             db.get_Db().exec(QString::fromStdString(oss.str()));
             this->has_beee_save = true;
-            
+
         }
 
         return this->has_beee_save;
@@ -127,10 +127,10 @@ public:
         User *user = new User(data);
         return *user;
     }
-    friend QDebug operator<<(QDebug os, const User &u) 
+    friend QDebug operator<<(QDebug os, const User &u)
     {
           os <<"\n";
-          os << "id \t\t:" << u.id << "\n";  
+          os << "id \t\t:" << u.id << "\n";
           os << "email \t\t:" << u.email << "\n";
           os << "first name \t:" << u.first_name << "\n";
           os << "last name \t:" << u.last_name << "\n";
