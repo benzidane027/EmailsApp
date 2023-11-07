@@ -1,5 +1,7 @@
 #include "customwidget.h"
 
+//setContentsMargins(int left, int top, int right, int bottom)
+
 mQLable::mQLable(QWidget *parent) : QLabel(parent)
 {
     setText("singup");
@@ -31,6 +33,7 @@ mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
     userPictureWidget->setMinimumWidth(45);
     userPictureWidget->setMaximumWidth(45);
     QHBoxLayout *userPictureLayout = new QHBoxLayout(userPictureWidget);
+
     QLabel *userPictureLabel = new QLabel();
     userPictureLayout->addWidget(userPictureLabel);
 
@@ -39,11 +42,15 @@ mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
 
 
     QWidget *userNameWidget = new QWidget();
+    QHBoxLayout *userNameLayout = new QHBoxLayout(userNameWidget);
+    userNameLayout->setContentsMargins(0,0,0,0);
+    QLabel *userNameLable = new QLabel();
 
-    QLabel *userNameLable = new QLabel(userNameWidget);
-
-    userNameLable->setText(" Amine benzidane");
+    userNameLable->setText("Amine benzidane");
     userNameLable->setStyleSheet("border:none;color:rgba(0,0,0,0.8);font-size:16px;");
+    userNameLayout->setContentsMargins(5,5,0,0);
+    userNameLayout->setAlignment(Qt::AlignTop);
+    userNameLayout->addWidget(userNameLable);
 
     QWidget *userDateWidget = new QWidget();
     userDateWidget->setMinimumWidth(50);
