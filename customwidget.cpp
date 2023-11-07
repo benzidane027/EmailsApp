@@ -15,46 +15,67 @@ mQLable::mQLable(QWidget *parent) : QLabel(parent)
 mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
 {
     setStyleSheet("border-bottom:1.5px solid rgba(127,127,127,0.3);");
-    setMinimumHeight(80);
+    setMinimumHeight(90);
     setMaximumHeight(100);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
-    QWidget *topOfMainLayout=new QWidget();
+    QWidget *topOfMainLayout = new QWidget();
 
     QHBoxLayout *subTopMainLayout = new QHBoxLayout(topOfMainLayout);
-    subTopMainLayout->setContentsMargins(0,0,0,0);
+    subTopMainLayout->setContentsMargins(0, 0, 0, 0);
     subTopMainLayout->setSpacing(0);
 
-    QWidget *userPictureWidget=new QWidget();
+    QWidget *userPictureWidget = new QWidget();
     userPictureWidget->setMinimumWidth(45);
     userPictureWidget->setMaximumWidth(45);
+    QHBoxLayout *userPictureLayout = new QHBoxLayout(userPictureWidget);
+    QLabel *userPictureLabel = new QLabel();
+    userPictureLayout->addWidget(userPictureLabel);
 
-    QWidget *userNameWidget=new QWidget();
-    QLabel *userNameLable=new QLabel(userNameWidget);
+    userPictureLayout->setContentsMargins(4, 2, 2, 4);
+    userPictureLabel->setStyleSheet("background-color:rgba(0,0,0,0.1); border-radius: 19px;");
+
+
+    QWidget *userNameWidget = new QWidget();
+
+    QLabel *userNameLable = new QLabel(userNameWidget);
+
     userNameLable->setText(" Amine benzidane");
     userNameLable->setStyleSheet("border:none;color:rgba(0,0,0,0.8);font-size:16px;");
 
-    QWidget *userDateWidget=new QWidget();
+    QWidget *userDateWidget = new QWidget();
     userDateWidget->setMinimumWidth(50);
     userDateWidget->setMaximumWidth(50);
-    QLabel *userDateLable=new QLabel(userDateWidget);
+    QLabel *userDateLable = new QLabel(userDateWidget);
     userDateLable->setText("8 Oct");
     userDateLable->setStyleSheet("border:none;color:rgba(0,0,0,0.5);font-size:17px;");
 
-    userPictureWidget->setStyleSheet("background-color:yellow");
-    //userNameWidget->setStyleSheet("background-color:pink");
-    //userDateWidget->setStyleSheet("background-color:grey");
+    //userPictureWidget->setStyleSheet("background-color:yellow");
+
+    // userNameWidget->setStyleSheet("background-color:pink");
+    // userDateWidget->setStyleSheet("background-color:grey");
 
     subTopMainLayout->addWidget(userPictureWidget);
     subTopMainLayout->addWidget(userNameWidget);
     subTopMainLayout->addWidget(userDateWidget);
 
-    QWidget *buttomOfMainLayout=new QWidget();
+    QWidget *buttomOfMainLayout = new QWidget();
+    QHBoxLayout *subButtomMainLayout = new QHBoxLayout(buttomOfMainLayout);
+    subButtomMainLayout->setContentsMargins(0, 0, 0, 0);
+    subButtomMainLayout->setSpacing(0);
+    QLabel *messageDescribtionLabel = new QLabel();
+    messageDescribtionLabel->setText("hello this is test message just fir example");
+    messageDescribtionLabel->setWordWrap(true);
+    subButtomMainLayout->addWidget(messageDescribtionLabel);
 
-    //topOfMainLayout->setStyleSheet("background-color:red;border:none;");
-    buttomOfMainLayout->setStyleSheet("background-color:green;border:none;");
+    //messageDescribtionLabel->setStyleSheet("background-color:green;color:rgba(0,0,0,0.7);");
+
+
+
+    topOfMainLayout->setStyleSheet("border:none;");
+    buttomOfMainLayout->setStyleSheet("border:none;");
 
     mainLayout->addWidget(topOfMainLayout);
     mainLayout->addWidget(buttomOfMainLayout);
