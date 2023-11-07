@@ -100,12 +100,12 @@ void MainWindow::database()
 void MainWindow::test()
 {
 
-    QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "rotation",this);
+    //QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "rotation",this);
 
-    animation->setDuration(1000);
-    animation->setStartValue(0);
-    animation->setEndValue(360);
-    animation->start(QPropertyAnimation::DeleteWhenStopped);
+    //animation->setDuration(1000);
+    //animation->setStartValue(0);
+    //animation->setEndValue(360);
+    //animation->start(QPropertyAnimation::DeleteWhenStopped);
 
     // std::ostringstream oss;
     // int x = 1;

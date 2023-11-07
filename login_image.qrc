@@ -7,5 +7,17 @@
         <file>images/send_mail.svg</file>
         <file>images/setting-icon.svg</file>
         <file>images/person-profile.svg</file>
+        <file>images/icons/search_icon.svg</file>
+        <file>images/icons/contact_icone.svg</file>
+        <file>images/icons/home_icon.svg</file>
+        <file>images/icons/message_icon.svg</file>
+        <file>images/icons/profile_icon.svg</file>
+        <file>images/icons/about_icon.svg</file>
+        <file>images/icons/setting_icon.svg</file>
+        <file>images/icons/bookmark_icon.svg</file>
+        <file>images/icons/delete_icon.svg</file>
+        <file>images/icons/flag_icon.svg</file>
+        <file>images/icons/toLeftArro_icon.svg</file>
+        <file>images/icons/toRightArrow_icon.svg</file>
     </qresource>
 </RCC>
