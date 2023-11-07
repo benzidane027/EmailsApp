@@ -54,14 +54,14 @@ QScrollBar::handle:vertical {
 }
 
 QScrollBar::handle:vertical:hover {
-  background-color: #148CD2;
-  border: 1px solid #148CD2;
+  background-color: #58666e;
+  border: 1px solid #58666e;
   border-radius: 4px;
   min-height: 8px;
 }
 
 QScrollBar::handle:vertical:focus {
-  border: 1px solid #1464A0;
+  border: 1px solid #58666e;
 }
 
 

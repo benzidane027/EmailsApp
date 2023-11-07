@@ -35,6 +35,7 @@ public:
 
     mQWidgetMessage(QWidget *parent = nullptr);
 
+
 };
 
 #endif // QCUSTOM_H
