@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <filesystem>
 #include "maillHandler.h"
-
+#include <QWidget>
 
 
 QT_BEGIN_NAMESPACE
@@ -27,10 +27,11 @@ public slots:
 
     //for test
     void sendMail();
-    void getMails();
+
     void database();
     void test();
 public:
+    void getMails(QWidget *parent );
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

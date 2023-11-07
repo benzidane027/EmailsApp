@@ -35,6 +35,81 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QScrollBar:vertical {
+  background-color: #d9dadb;
+  width: 12px;
+  margin: 16px 2px 16px 2px;
+  border: 1px solid #999fa3;
+  border-radius: 4px;
+}
+
+
+
+QScrollBar::handle:vertical {
+  background-color: #787878;
+  border: 1px solid #999fa3;
+  min-height: 8px;
+  border-radius: 4px;
+}
+
+QScrollBar::handle:vertical:hover {
+  background-color: #148CD2;
+  border: 1px solid #148CD2;
+  border-radius: 4px;
+  min-height: 8px;
+}
+
+QScrollBar::handle:vertical:focus {
+  border: 1px solid #1464A0;
+}
+
+
+
+
+
+QScrollBar::add-line:vertical {
+  margin: 3px 0px 3px 0px;
+  border-image: url(&quot;:/qss_icons/rc/arrow_down_disabled.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
+  border-image: url(&quot;:/qss_icons/rc/arrow_down.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  margin: 3px 0px 3px 0px;
+  border-image: url(&quot;:/qss_icons/rc/arrow_up_disabled.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical:hover, QScrollBar::sub-line:vertical:on {
+  border-image: url(&quot;:/qss_icons/rc/arrow_up.png&quot;);
+  height: 12px;
+  width: 12px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+  background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+  background: none;
+}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -636,7 +711,7 @@ color:rgba(0,0,0,0.75)
                              <property name="geometry">
                               <rect>
                                <x>10</x>
-                               <y>0</y>
+                               <y>2</y>
                                <width>67</width>
                                <height>17</height>
                               </rect>
@@ -675,16 +750,16 @@ color:rgba(0,0,0,0.75)
                               <number>0</number>
                              </property>
                              <property name="leftMargin">
-                              <number>0</number>
+                              <number>1</number>
                              </property>
                              <property name="topMargin">
-                              <number>0</number>
+                              <number>1</number>
                              </property>
                              <property name="rightMargin">
-                              <number>0</number>
+                              <number>1</number>
                              </property>
                              <property name="bottomMargin">
-                              <number>0</number>
+                              <number>1</number>
                              </property>
                              <item>
                               <widget class="QLabel" name="label_22">
@@ -708,7 +783,7 @@ color:rgba(0,0,0,0.75)
                              <property name="geometry">
                               <rect>
                                <x>10</x>
-                               <y>0</y>
+                               <y>3</y>
                                <width>67</width>
                                <height>17</height>
                               </rect>
@@ -780,7 +855,7 @@ color:rgba(0,0,0,0.75)
                              <property name="geometry">
                               <rect>
                                <x>10</x>
-                               <y>0</y>
+                               <y>3</y>
                                <width>67</width>
                                <height>17</height>
                               </rect>
@@ -852,7 +927,7 @@ color:rgba(0,0,0,0.75)
                              <property name="geometry">
                               <rect>
                                <x>10</x>
-                               <y>0</y>
+                               <y>3</y>
                                <width>67</width>
                                <height>17</height>
                               </rect>
@@ -1193,6 +1268,60 @@ border-radius: 10px;
                           <property name="styleSheet">
                            <string notr="true">border-top:1.5px solid rgba(127,127,127,0.1)</string>
                           </property>
+                          <layout class="QHBoxLayout" name="horizontalLayout_40">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QScrollArea" name="scrollArea">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">border:none;</string>
+                             </property>
+                             <property name="frameShape">
+                              <enum>QFrame::Box</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Plain</enum>
+                             </property>
+                             <property name="widgetResizable">
+                              <bool>true</bool>
+                             </property>
+                             <widget class="QWidget" name="scrollAreaWidgetContents">
+                              <property name="geometry">
+                               <rect>
+                                <x>0</x>
+                                <y>0</y>
+                                <width>300</width>
+                                <height>304</height>
+                               </rect>
+                              </property>
+                              <layout class="QHBoxLayout" name="horizontalLayout_41">
+                               <item>
+                                <widget class="QWidget" name="widget_49" native="true"/>
+                               </item>
+                              </layout>
+                             </widget>
+                            </widget>
+                           </item>
+                          </layout>
                          </widget>
                         </item>
                        </layout>

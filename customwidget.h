@@ -5,8 +5,7 @@
 #include <QWidget>
 #include <QString>
 #include <QStackedWidget>
-
-
+#include <QVBoxLayout>
 class mQLable : public QLabel
 {
 private:
@@ -27,6 +26,15 @@ protected:
         if (stack_has_been_set)
             stk->setCurrentIndex(1);
     }
+};
+
+class mQWidgetMessage : public QWidget
+{
+
+public:
+
+    mQWidgetMessage(QWidget *parent = nullptr);
+
 };
 
 #endif // QCUSTOM_H

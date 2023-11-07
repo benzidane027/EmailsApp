@@ -31,12 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
     custom->setStack(this->ui->stackedWidget);
     custom->setGeometry(230, 90, 50, 20);
 
-    //QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(test()));
-    // button for test
-    QObject::connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendMail()));
-    QObject::connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(getMails()));
-    QObject::connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(database()));
-    QObject::connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(test()));
+    //  QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(test()));
+    //   button for test
+    //  QObject::connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendMail()));
+    //  QObject::connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT());
+    //  QObject::connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(database()));
+    //  QObject::connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(test()));
+
+    getMails(ui->widget_49);
 
     QObject::connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(goToFormManaul()));
     QObject::connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(CloseApp()));
@@ -48,14 +50,23 @@ void MainWindow::sendMail()
     qDebug() << "send maile functuion";
     sendMailThread *th = new sendMailThread(this);
     th->initMailThread("benzidane27@gmail.com", "test sub", "hi hello");
-    qDebug() << th->str();
+    qDebug() << th->str().c_str();
     th->start();
 }
-void MainWindow::getMails()
+void MainWindow::getMails(QWidget *parent )
 {
-    qDebug() << "get mails functuion";
-    getMailThread *th = new getMailThread();
-    th->start();
+    QVBoxLayout *lay = new QVBoxLayout(parent);
+
+    for (size_t i = 0; i < 20; i++)
+    {
+        mQWidgetMessage *p = new mQWidgetMessage();
+
+        lay->addWidget(p);
+    }
+
+    // qDebug() << "get mails functuion";
+    // getMailThread *th = new getMailThread();
+    // th->start();
 };
 void MainWindow::database()
 {
@@ -100,12 +111,12 @@ void MainWindow::database()
 void MainWindow::test()
 {
 
-    //QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "rotation",this);
+    // QPropertyAnimation *animation = new QPropertyAnimation(this->ui->label_14, "rotation",this);
 
-    //animation->setDuration(1000);
-    //animation->setStartValue(0);
-    //animation->setEndValue(360);
-    //animation->start(QPropertyAnimation::DeleteWhenStopped);
+    // animation->setDuration(1000);
+    // animation->setStartValue(0);
+    // animation->setEndValue(360);
+    // animation->start(QPropertyAnimation::DeleteWhenStopped);
 
     // std::ostringstream oss;
     // int x = 1;
@@ -121,7 +132,7 @@ void MainWindow::test()
     // oss << " hell " << user << " d";
 
     // qDebug() << user;
-    qDebug()<< "hello how are you";
+    qDebug() << "hello how are you";
 };
 
 void MainWindow::CloseApp()
