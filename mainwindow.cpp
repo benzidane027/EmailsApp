@@ -55,6 +55,7 @@ void MainWindow::sendMail()
 }
 void MainWindow::getMails(QWidget *parent )
 {
+    getMailThread *th = new getMailThread(this);
     QVBoxLayout *lay = new QVBoxLayout(parent);
 
     for (size_t i = 0; i < 20; i++)
@@ -63,10 +64,8 @@ void MainWindow::getMails(QWidget *parent )
 
         lay->addWidget(p);
     }
-
-    // qDebug() << "get mails functuion";
-    // getMailThread *th = new getMailThread();
-    // th->start();
+   
+    th->start();
 };
 void MainWindow::database()
 {

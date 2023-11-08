@@ -1281,46 +1281,88 @@ border-radius: 10px;
                             <number>0</number>
                            </property>
                            <item>
-                            <widget class="QScrollArea" name="scrollArea">
-                             <property name="sizePolicy">
-                              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                               <horstretch>0</horstretch>
-                               <verstretch>0</verstretch>
-                              </sizepolicy>
-                             </property>
+                            <widget class="QStackedWidget" name="stackedWidget_4">
                              <property name="styleSheet">
                               <string notr="true">border:none;</string>
                              </property>
-                             <property name="frameShape">
-                              <enum>QFrame::Box</enum>
-                             </property>
-                             <property name="frameShadow">
-                              <enum>QFrame::Plain</enum>
-                             </property>
-                             <property name="verticalScrollBarPolicy">
-                              <enum>Qt::ScrollBarAsNeeded</enum>
-                             </property>
-                             <property name="horizontalScrollBarPolicy">
-                              <enum>Qt::ScrollBarAsNeeded</enum>
-                             </property>
-                             <property name="widgetResizable">
-                              <bool>true</bool>
-                             </property>
-                             <widget class="QWidget" name="scrollAreaWidgetContents">
-                              <property name="geometry">
-                               <rect>
-                                <x>0</x>
-                                <y>0</y>
-                                <width>320</width>
-                                <height>304</height>
-                               </rect>
-                              </property>
-                              <layout class="QHBoxLayout" name="horizontalLayout_41">
+                             <widget class="QWidget" name="page_7">
+                              <layout class="QHBoxLayout" name="horizontalLayout_53">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>1</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>1</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>1</number>
+                               </property>
                                <item>
-                                <widget class="QWidget" name="widget_49" native="true"/>
+                                <widget class="QScrollArea" name="scrollArea">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true"/>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::Box</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Plain</enum>
+                                 </property>
+                                 <property name="verticalScrollBarPolicy">
+                                  <enum>Qt::ScrollBarAsNeeded</enum>
+                                 </property>
+                                 <property name="horizontalScrollBarPolicy">
+                                  <enum>Qt::ScrollBarAsNeeded</enum>
+                                 </property>
+                                 <property name="widgetResizable">
+                                  <bool>true</bool>
+                                 </property>
+                                 <widget class="QWidget" name="scrollAreaWidgetContents">
+                                  <property name="geometry">
+                                   <rect>
+                                    <x>0</x>
+                                    <y>0</y>
+                                    <width>319</width>
+                                    <height>302</height>
+                                   </rect>
+                                  </property>
+                                  <layout class="QHBoxLayout" name="horizontalLayout_41">
+                                   <property name="spacing">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="leftMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="topMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="rightMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="bottomMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <item>
+                                    <widget class="QWidget" name="widget_49" native="true"/>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
+                             <widget class="QWidget" name="page_8"/>
                             </widget>
                            </item>
                           </layout>

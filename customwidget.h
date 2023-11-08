@@ -6,6 +6,8 @@
 #include <QString>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+
+//#include <QtWaitingSpinner>
 class mQLable : public QLabel
 {
 private:
