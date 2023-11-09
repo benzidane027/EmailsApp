@@ -31,7 +31,7 @@ public slots:
     void database();
     void test();
 public:
-    void getMails(QWidget *parent );
+    void getMails();
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

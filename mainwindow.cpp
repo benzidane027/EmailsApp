@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     //  QObject::connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(database()));
     //  QObject::connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(test()));
 
-    getMails(ui->widget_49);
+    getMails();
 
     QObject::connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(goToFormManaul()));
     QObject::connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(CloseApp()));
@@ -53,19 +53,27 @@ void MainWindow::sendMail()
     qDebug() << th->str().c_str();
     th->start();
 }
-void MainWindow::getMails(QWidget *parent )
+void MainWindow::getMails()
 {
-    getMailThread *th = new getMailThread(this);
-    QVBoxLayout *lay = new QVBoxLayout(parent);
 
+    getMailThread *th = new getMailThread();
+
+    th->start();
+    connect(th, &getMailThread::workFinished, this, [&](vmime::string resualt)
+    {
+    QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
     for (size_t i = 0; i < 20; i++)
     {
         mQWidgetMessage *p = new mQWidgetMessage();
 
         lay->addWidget(p);
     }
-   
-    th->start();
+        qDebug() << "###done###";
+        qDebug() << resualt;
+
+         });
+
+    // th.start();
 };
 void MainWindow::database()
 {
