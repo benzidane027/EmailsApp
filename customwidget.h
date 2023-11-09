@@ -32,11 +32,15 @@ protected:
 
 class mQWidgetMessage : public QWidget
 {
+private:
+    std::string senderImage;
+    std::string senderMail;
+    std::string senderMessage;
+    std::string senderDate;
 
 public:
 
-    mQWidgetMessage(QWidget *parent = nullptr);
-
+    mQWidgetMessage(std::string senderMail,std::string senderMessagesubject,std::string senderImage,std::string senderDate,QWidget *parent = nullptr);
 
 };
 

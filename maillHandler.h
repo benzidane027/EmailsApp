@@ -116,15 +116,12 @@ class getMailThread : public QThread
     Q_OBJECT
 
 signals:
-    void workFinished(vmime::string result);
-
+    void workFinished(std::vector<std::shared_ptr<vmime::net::message>> result);
 
 public:
-    vmime::string vmime_msg_test;
     getMailThread(QWidget *parent = nullptr)
         : QThread(parent)
     {
-
     }
 
     vmime::string &str()
@@ -154,17 +151,17 @@ protected:
         vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
         fld->open(vmime::net::folder::MODE_READ_WRITE);
 
-        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(160, 165));
+        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(-10, -1));
         fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
         // msg->getHeader()->hasField("to")
         // msg->getParsedMessage()->getBody()->getContentType().generate();
         // msg->getParsedMessage()->getBody()->getEncoding().generate()
+        emit workFinished(allMessages);
         for (auto msg : allMessages)
         {
-            fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
-            vmime_msg_test = msg->getHeader()->generate();
-           emit workFinished(vmime_msg_test);
-
+            break;
+            // fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
+            // vmime_msg_test = msg->getHeader()->generate();
 
             // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
 
@@ -197,7 +194,7 @@ protected:
             //    }
         }
 
-       // qDebug() << "end geting **********";
+        // qDebug() << "end geting **********";
     }
 };
 

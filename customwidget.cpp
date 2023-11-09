@@ -1,6 +1,6 @@
 #include "customwidget.h"
 
-//setContentsMargins(int left, int top, int right, int bottom)
+// setContentsMargins(int left, int top, int right, int bottom)
 
 mQLable::mQLable(QWidget *parent) : QLabel(parent)
 {
@@ -14,7 +14,7 @@ mQLable::mQLable(QWidget *parent) : QLabel(parent)
         ");
 }
 
-mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
+mQWidgetMessage::mQWidgetMessage(std::string senderMail,std::string senderMessagesubject,std::string senderImage,std::string senderDate,QWidget *parent) : QWidget(parent)
 {
     setStyleSheet("border-bottom:1.5px solid rgba(127,127,127,0.3);");
     setMinimumHeight(90);
@@ -24,6 +24,7 @@ mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     QWidget *topOfMainLayout = new QWidget();
+
 
     QHBoxLayout *subTopMainLayout = new QHBoxLayout(topOfMainLayout);
     subTopMainLayout->setContentsMargins(0, 0, 0, 0);
@@ -40,26 +41,30 @@ mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
     userPictureLayout->setContentsMargins(4, 2, 2, 4);
     userPictureLabel->setStyleSheet("background-color:rgba(0,0,0,0.1); border-radius: 19px;");
 
-
     QWidget *userNameWidget = new QWidget();
     QHBoxLayout *userNameLayout = new QHBoxLayout(userNameWidget);
-    userNameLayout->setContentsMargins(0,0,0,0);
+    userNameLayout->setContentsMargins(0, 0, 0, 0);
     QLabel *userNameLable = new QLabel();
 
-    userNameLable->setText("Amine benzidane");
+    userNameLable->setText(QString::fromStdString(senderMail));
+    // userNameLable->setMaximumWidth(200);
+    // userNameLable->setMinimumWidth(200);
+
     userNameLable->setStyleSheet("border:none;color:rgba(0,0,0,0.8);font-size:16px;");
-    userNameLayout->setContentsMargins(5,5,0,0);
+    userNameLayout->setContentsMargins(5, 5, 0, 0);
     userNameLayout->setAlignment(Qt::AlignTop);
     userNameLayout->addWidget(userNameLable);
 
     QWidget *userDateWidget = new QWidget();
-    userDateWidget->setMinimumWidth(50);
-    userDateWidget->setMaximumWidth(50);
     QLabel *userDateLable = new QLabel(userDateWidget);
-    userDateLable->setText("8 Oct");
+    userDateLable->setText(QString::fromStdString(senderDate));
     userDateLable->setStyleSheet("border:none;color:rgba(0,0,0,0.5);font-size:17px;");
 
-    //userPictureWidget->setStyleSheet("background-color:yellow");
+    userDateWidget->setMaximumWidth(40);
+    userDateWidget->setMinimumWidth(40);
+
+
+    // userPictureWidget->setStyleSheet("background-color:yellow");
 
     // userNameWidget->setStyleSheet("background-color:pink");
     // userDateWidget->setStyleSheet("background-color:grey");
@@ -69,17 +74,21 @@ mQWidgetMessage::mQWidgetMessage(QWidget *parent) : QWidget(parent)
     subTopMainLayout->addWidget(userDateWidget);
 
     QWidget *buttomOfMainLayout = new QWidget();
+    buttomOfMainLayout->setMaximumWidth(280);
+    buttomOfMainLayout->setMinimumWidth(280);
+
     QHBoxLayout *subButtomMainLayout = new QHBoxLayout(buttomOfMainLayout);
     subButtomMainLayout->setContentsMargins(0, 0, 0, 0);
     subButtomMainLayout->setSpacing(0);
     QLabel *messageDescribtionLabel = new QLabel();
-    messageDescribtionLabel->setText("hello this is test message just fir example");
+    messageDescribtionLabel->setText(QString::fromStdString(senderMessagesubject));
+
     messageDescribtionLabel->setWordWrap(true);
+
+
     subButtomMainLayout->addWidget(messageDescribtionLabel);
 
-    //messageDescribtionLabel->setStyleSheet("background-color:green;color:rgba(0,0,0,0.7);");
-
-
+    // messageDescribtionLabel->setStyleSheet("background-color:green;color:rgba(0,0,0,0.7);");
 
     topOfMainLayout->setStyleSheet("border:none;");
     buttomOfMainLayout->setStyleSheet("border:none;");

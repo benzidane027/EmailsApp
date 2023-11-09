@@ -11,6 +11,7 @@
 #include <QGraphicsRectItem>
 #include <regex>
 #include <iostream>
+#include <boost/algorithm/string.hpp>
 
 std::string Email_str;
 std::string Pass_str;
@@ -55,23 +56,44 @@ void MainWindow::sendMail()
 }
 void MainWindow::getMails()
 {
+    // vmime::text outText;
+    // vmime::string inData ="Linux dans un =?UTF-8?B?dMOpbMOpcGhvbmUgbW9iaWxl?=";
+    // vmime::text::decodeAndUnfold(inData, &outText);
+    // qDebug()<<outText.getConvertedText(vmime::charset("utf-8")).c_str();
 
     getMailThread *th = new getMailThread();
 
     th->start();
-    connect(th, &getMailThread::workFinished, this, [&](vmime::string resualt)
-    {
-    QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
-    for (size_t i = 0; i < 20; i++)
-    {
-        mQWidgetMessage *p = new mQWidgetMessage();
+    connect(th, &getMailThread::workFinished, this, [&](std::vector<std::shared_ptr<vmime::net::message>> resualt)
+            {
+                QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
+                std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
 
-        lay->addWidget(p);
-    }
-        qDebug() << "###done###";
-        qDebug() << resualt;
+                for (auto msg : resualt)
+                {
+                    std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
+                    std::sregex_iterator emailIterator(senderMail.begin(), senderMail.end(), emailRegex);
+                    std::sregex_iterator endIterator;
 
-         });
+                    while (emailIterator != endIterator)
+                    {
+                        std::smatch match = *emailIterator;
+                        senderMail= match.str();
+                        boost::trim(senderMail);
+                        ++emailIterator;
+                    }
+                    vmime::string senderMessagesubject = msg->getHeader()->Subject()->getValue()->generate().c_str();
+                    //boost::trim(senderMessagesubject);
+
+                    vmime::text senderMessagesubjectoutText ;
+                    vmime::text::decodeAndUnfold(senderMessagesubject,&senderMessagesubjectoutText);
+                    //qDebug() << senderMessagesubjectoutText.generate().c_str();
+                    mQWidgetMessage *p = new mQWidgetMessage(senderMail, senderMessagesubjectoutText.getConvertedText(vmime::charset("utf-8")), "", "8 oct");
+
+                    lay->addWidget(p);
+                    // qDebug()<< msg->getHeader()->To()->generate().c_str();
+                }
+                qDebug() << "###done###"; });
 
     // th.start();
 };

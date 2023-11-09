@@ -78,6 +78,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "qpropertyanimation": "cpp",
-        "qwidget": "cpp"
+        "qwidget": "cpp",
+        "shared_mutex": "cpp"
     }
 }
