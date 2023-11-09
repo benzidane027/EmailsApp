@@ -68,7 +68,8 @@ void MainWindow::getMails()
             {
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
                 std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
-                resualt.reserve(10);
+                std::reverse(resualt.begin(),resualt.end());
+                //resualt.reserve(10);
                 for (auto msg : resualt)
                 {
                     std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
