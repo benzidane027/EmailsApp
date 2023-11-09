@@ -150,8 +150,9 @@ protected:
 
         vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
         fld->open(vmime::net::folder::MODE_READ_WRITE);
+        int messageCount = fld->getMessageCount();
 
-        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(-10, -1));
+        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(messageCount - 10, messageCount));
         fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
         // msg->getHeader()->hasField("to")
         // msg->getParsedMessage()->getBody()->getContentType().generate();
