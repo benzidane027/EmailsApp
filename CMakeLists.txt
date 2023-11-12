@@ -16,7 +16,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Sql)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql )
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Sql)
 
 
 find_package(vmime)
@@ -35,6 +34,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+
+        loadingWidget/waitingspinnerwidget.h
+        loadingWidget/waitingspinnerwidget.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -63,7 +65,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(email_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql )
+target_link_libraries(email_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
 #target_link_libraries(email_app PUBLIC  Poco::Net Poco::Foundation )
 target_link_libraries(email_app PUBLIC  curl )
 target_link_libraries(email_app PUBLIC  vmime )

@@ -1285,6 +1285,7 @@ border-radius: 10px;
                              <property name="styleSheet">
                               <string notr="true">border:none;</string>
                              </property>
+                             <widget class="QWidget" name="page_8"/>
                              <widget class="QWidget" name="page_7">
                               <layout class="QHBoxLayout" name="horizontalLayout_53">
                                <property name="spacing">
@@ -1362,7 +1363,6 @@ border-radius: 10px;
                                </item>
                               </layout>
                              </widget>
-                             <widget class="QWidget" name="page_8"/>
                             </widget>
                            </item>
                           </layout>

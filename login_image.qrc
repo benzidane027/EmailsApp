@@ -21,5 +21,7 @@
         <file>images/icons/toRightArrow_icon.svg</file>
         <file>images/icons/user_icon.svg</file>
         <file>images/icons/sort_icon.svg</file>
+        <file>images/icons/loading_block_icon.svg</file>
+        <file>images/animated/loading_animeted.gif</file>
     </qresource>
 </RCC>

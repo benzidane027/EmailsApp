@@ -12,6 +12,7 @@
 #include <regex>
 #include <iostream>
 #include <boost/algorithm/string.hpp>
+#include "loadingWidget/waitingspinnerwidget.h"
 
 std::string Email_str;
 std::string Pass_str;
@@ -56,20 +57,29 @@ void MainWindow::sendMail()
 }
 void MainWindow::getMails()
 {
-    // vmime::text outText;
-    // vmime::string inData ="Linux dans un =?UTF-8?B?dMOpbMOpcGhvbmUgbW9iaWxl?=";
-    // vmime::text::decodeAndUnfold(inData, &outText);
-    // qDebug()<<outText.getConvertedText(vmime::charset("utf-8")).c_str();
+    WaitingSpinnerWidget *spinner = new WaitingSpinnerWidget(ui->page_8);
+    spinner->setRoundness(70.0);
+    spinner->setMinimumTrailOpacity(15.0);
+    spinner->setTrailFadePercentage(70.0);
+    spinner->setNumberOfLines(12);
+    spinner->setLineLength(10);
+    spinner->setLineWidth(5);
+    spinner->setInnerRadius(10);
+    spinner->setRevolutionsPerSecond(1);
+    spinner->setColor(QColor(87, 91, 97));
+    spinner->start();
 
     getMailThread *th = new getMailThread();
 
     th->start();
     connect(th, &getMailThread::workFinished, this, [&](std::vector<std::shared_ptr<vmime::net::message>> resualt)
             {
+                delete spinner;
+                ui->stackedWidget_4->setCurrentIndex(1);
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
                 std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
                 std::reverse(resualt.begin(),resualt.end());
-                //resualt.reserve(10);
+
                 for (auto msg : resualt)
                 {
                     std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
