@@ -74,7 +74,7 @@ void MainWindow::getMails()
     th->start();
     connect(th, &getMailThread::workFinished, this, [&](std::vector<std::shared_ptr<vmime::net::message>> resualt)
             {
-                delete spinner;
+
                 ui->stackedWidget_4->setCurrentIndex(1);
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
                 std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");

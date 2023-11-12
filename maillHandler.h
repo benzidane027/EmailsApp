@@ -135,6 +135,9 @@ protected:
     void run() override
     {
         qDebug() << "start geting **********";
+        try{
+
+
         vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
         vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
 
@@ -194,7 +197,13 @@ protected:
             //      qDebug()<< "\n############  done ##################\n";
             //    }
         }
+        }
+        catch(vmime::exceptions::connection_error errorMessage){
 
+            qDebug()<<"Error while fetching try agian";
+             run();
+           // run();
+        }
         // qDebug() << "end geting **********";
     }
 };
