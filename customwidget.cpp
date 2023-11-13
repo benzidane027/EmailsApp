@@ -14,17 +14,29 @@ mQLable::mQLable(QWidget *parent) : QLabel(parent)
         ");
 }
 
-mQWidgetMessage::mQWidgetMessage(std::string senderMail,std::string senderMessagesubject,std::string senderImage,std::string senderDate,QWidget *parent) : QWidget(parent)
+mQWidgetMessage::mQWidgetMessage(std::string senderMail, std::string Messagesubject, std::string senderImage, std::string senderDate,std::string MessageBody, QWidget *parent) : QWidget(parent)
 {
-    setStyleSheet("border-bottom:1.5px solid rgba(127,127,127,0.3);");
+
+    this->senderImage=senderImage;
+    this->senderMail=senderMail;
+    this->Messagesubject=Messagesubject;
+    this->senderDate=senderDate;
+
+   // this->MessageBody= &MessageBody;
+
+
+    setObjectName("mesageHeaderTemplate");
+    setStyleSheet("#mesageHeaderTemplate {border-bottom:1.5px solid rgba(127,127,127,0.3);}\n\
+                    #mesageHeaderTemplate:hover { background-color: rgba(220,224,230,0.3);   border-radius: 5px; } \n\
+                    ");
+
     setMinimumHeight(90);
     setMaximumHeight(100);
-
+    setCursor(Qt::PointingHandCursor);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     QWidget *topOfMainLayout = new QWidget();
-
 
     QHBoxLayout *subTopMainLayout = new QHBoxLayout(topOfMainLayout);
     subTopMainLayout->setContentsMargins(0, 0, 0, 0);
@@ -63,7 +75,6 @@ mQWidgetMessage::mQWidgetMessage(std::string senderMail,std::string senderMessag
     userDateWidget->setMaximumWidth(40);
     userDateWidget->setMinimumWidth(40);
 
-
     // userPictureWidget->setStyleSheet("background-color:yellow");
 
     // userNameWidget->setStyleSheet("background-color:pink");
@@ -81,10 +92,9 @@ mQWidgetMessage::mQWidgetMessage(std::string senderMail,std::string senderMessag
     subButtomMainLayout->setContentsMargins(0, 0, 0, 0);
     subButtomMainLayout->setSpacing(0);
     QLabel *messageDescribtionLabel = new QLabel();
-    messageDescribtionLabel->setText(QString::fromStdString(senderMessagesubject));
+    messageDescribtionLabel->setText(QString::fromStdString(Messagesubject));
 
     messageDescribtionLabel->setWordWrap(true);
-
 
     subButtomMainLayout->addWidget(messageDescribtionLabel);
 

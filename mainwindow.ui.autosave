@@ -1662,7 +1662,7 @@ border-radius: 10px;
                               <string notr="true">border:none;</string>
                              </property>
                              <property name="currentIndex">
-                              <number>1</number>
+                              <number>0</number>
                              </property>
                              <widget class="QWidget" name="page_5">
                               <layout class="QHBoxLayout" name="horizontalLayout_46">

@@ -135,75 +135,76 @@ protected:
     void run() override
     {
         qDebug() << "start geting **********";
-        try{
-
-
-        vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
-        vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
-
-        vmime::shared_ptr<vmime::net::store> st = theSession->getStore(url);
-
-        st->setProperty("options.need-authentication", true);
-        st->setProperty("auth.username", Env::CONFIG_EMIAL);
-        st->setProperty("auth.password", Env::CONFIG_PASSWORD);
-        st->connect();
-
-        vmime::net::folder::path path;
-        path.appendComponent(vmime::net::folder::path::component("INBOX"));
-
-        vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
-        fld->open(vmime::net::folder::MODE_READ_WRITE);
-        int messageCount = fld->getMessageCount();
-
-        std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(messageCount - 10, messageCount));
-        fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
-        // msg->getHeader()->hasField("to")
-        // msg->getParsedMessage()->getBody()->getContentType().generate();
-        // msg->getParsedMessage()->getBody()->getEncoding().generate()
-        emit workFinished(allMessages);
-        for (auto msg : allMessages)
+        try
         {
-            break;
-            // fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
-            // vmime_msg_test = msg->getHeader()->generate();
+            vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
+            vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
 
-            // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
+            vmime::shared_ptr<vmime::net::store> st = theSession->getStore(url);
 
-            // qDebug() << msg->getHeader()->To()->getValue()->generate();
-            //     vmime::utility::outputStreamAdapter out(std::cout);
-            //     // obj->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
-            //     vmime::messageParser parser(msg->getParsedMessage());
-            //     for (size_t i = 0; i < parser.getTextPartCount(); i++)
-            //     {
-            //         const vmime::textPart &part = *parser.getTextPartAt(i);
-            //        // qDebug() << "\n######\n" << part.getType().generate() << "\n######\n";
+            st->setProperty("options.need-authentication", true);
+            st->setProperty("auth.username", Env::CONFIG_EMIAL);
+            st->setProperty("auth.password", Env::CONFIG_PASSWORD);
+            st->connect();
 
-            //         if (part.getType().getSubType() == vmime::mediaTypes::TEXT_HTML)
-            //         {
+            vmime::net::folder::path path;
+            path.appendComponent(vmime::net::folder::path::component("INBOX"));
 
-            //             part.getText().get()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
-            //         }
-            //         else
-            //         {
-            //             //const vmime::textPart &tp = dynamic_cast<const vmime::textPart &>(part);
-            //             //tp.getText()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
-            //         }
-            //     }
-            //  qDebug()<< msg->getNumber();
-            //    std::vector<std::shared_ptr<vmime::bodyPart>> bodyParts= msg->getParsedMessage()->getBody()->getPartList();
-            //    for (auto bodyPart: bodyParts){
-            //      qDebug()<< "\n############  start ##################\n";
-            //      qDebug()<<bodyPart->generate();
-            //      qDebug()<< "\n############  done ##################\n";
-            //    }
+            vmime::shared_ptr<vmime::net::folder> fld = st->getFolder(path);
+            fld->open(vmime::net::folder::MODE_READ_WRITE);
+            int messageCount = fld->getMessageCount();
+
+            std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(messageCount - 20, messageCount));
+            fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
+            // msg->getHeader()->hasField("to")
+            // msg->getParsedMessage()->getBody()->getContentType().generate();
+            // msg->getParsedMessage()->getBody()->getEncoding().generate()
+            emit workFinished(allMessages);
+            for (auto msg : allMessages)
+            {
+                break;
+                // fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
+                // vmime_msg_test = msg->getHeader()->generate();
+
+                // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
+
+                // qDebug() << msg->getHeader()->To()->getValue()->generate();
+                //     vmime::utility::outputStreamAdapter out(std::cout);
+                //     // obj->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+                //     vmime::messageParser parser(msg->getParsedMessage());
+                //     for (size_t i = 0; i < parser.getTextPartCount(); i++)
+                //     {
+                //         const vmime::textPart &part = *parser.getTextPartAt(i);
+                //        // qDebug() << "\n######\n" << part.getType().generate() << "\n######\n";
+
+                //         if (part.getType().getSubType() == vmime::mediaTypes::TEXT_HTML)
+                //         {
+
+                //             part.getText().get()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+                //         }
+                //         else
+                //         {
+                //             //const vmime::textPart &tp = dynamic_cast<const vmime::textPart &>(part);
+                //             //tp.getText()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+                //         }
+                //     }
+                //  qDebug()<< msg->getNumber();
+                //    std::vector<std::shared_ptr<vmime::bodyPart>> bodyParts= msg->getParsedMessage()->getBody()->getPartList();
+                //    for (auto bodyPart: bodyParts){
+                //      qDebug()<< "\n############  start ##################\n";
+                //      qDebug()<<bodyPart->generate();
+                //      qDebug()<< "\n############  done ##################\n";
+                //    }
+            }
         }
-        }
-        catch(vmime::exceptions::connection_error errorMessage){
+        catch (...)
+        {
 
-            qDebug()<<"Error while fetching try agian";
-             run();
-           // run();
+            qDebug() << "Error while fetching try agian";
+            run();
+
         }
+
         // qDebug() << "end geting **********";
     }
 };

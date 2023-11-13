@@ -72,9 +72,9 @@ void MainWindow::getMails()
     getMailThread *th = new getMailThread();
 
     th->start();
+
     connect(th, &getMailThread::workFinished, this, [&](std::vector<std::shared_ptr<vmime::net::message>> resualt)
             {
-
                 ui->stackedWidget_4->setCurrentIndex(1);
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
                 std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
@@ -82,6 +82,7 @@ void MainWindow::getMails()
 
                 for (auto msg : resualt)
                 {
+
                     std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
                     std::sregex_iterator emailIterator(senderMail.begin(), senderMail.end(), emailRegex);
                     std::sregex_iterator endIterator;
@@ -99,10 +100,20 @@ void MainWindow::getMails()
                     vmime::text senderMessagesubjectoutText ;
                     vmime::text::decodeAndUnfold(senderMessagesubject,&senderMessagesubjectoutText);
                     //qDebug() << senderMessagesubjectoutText.generate().c_str();
-                    mQWidgetMessage *p = new mQWidgetMessage(senderMail, senderMessagesubjectoutText.getConvertedText(vmime::charset("utf-8")), "", "8 oct");
+                   // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
+
+                    mQWidgetMessage *p = new mQWidgetMessage(senderMail, senderMessagesubjectoutText.getConvertedText(vmime::charset("utf-8")), "", "8 oct","msg_body");
+                    p->TemplateDetails(ui->stackedWidget_3,ui->label_32,ui->label_33,ui->label_34,ui->label_35,ui->textBrowser);
 
                     lay->addWidget(p);
-                    // qDebug()<< msg->getHeader()->To()->generate().c_str();
+                    qDebug()<<"";
+              // std::vector<std::shared_ptr<vmime::bodyPart>> bodyParts= msg->getParsedMessage()->getBody()->getPartList();
+                    // for (auto bodyPart: bodyParts){
+                    //   qDebug()<< "\n############  start ##################\n";
+                    //   qDebug()<<bodyPart->generate();
+                    //   qDebug()<< "\n############  done ##################\n";
+                    // }
+
                 }
                 qDebug() << "###done###"; });
 
