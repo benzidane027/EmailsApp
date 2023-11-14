@@ -80,6 +80,7 @@
         "qpropertyanimation": "cpp",
         "qwidget": "cpp",
         "shared_mutex": "cpp",
-        "qtextbrowser": "cpp"
+        "qtextbrowser": "cpp",
+        "qmap": "cpp"
     }
 }

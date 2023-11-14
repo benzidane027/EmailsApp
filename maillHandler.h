@@ -10,6 +10,8 @@
 
 #include "ENV.h"
 #include "customwidget.h"
+#include <boost/algorithm/string.hpp>
+#include <regex>
 
 class sendMailThread : public QThread
 {
@@ -116,7 +118,7 @@ class getMailThread : public QThread
     Q_OBJECT
 
 signals:
-    void workFinished(std::vector<std::shared_ptr<vmime::net::message>> result);
+    void workFinished(QList<QMap<std::string, std::string>>);
 
 public:
     getMailThread(QWidget *parent = nullptr)
@@ -134,9 +136,14 @@ public:
 protected:
     void run() override
     {
+        QList<QMap<std::string, std::string>> data;
+        std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+
         qDebug() << "start geting **********";
         try
         {
+            QMap<std::string, std::string> dataLine;
+
             vmime::shared_ptr<vmime::net::session> theSession = vmime::net::session::create();
             vmime::utility::url url("imap://" + vmime::string(Env::CONFIG_HOST));
 
@@ -154,16 +161,65 @@ protected:
             fld->open(vmime::net::folder::MODE_READ_WRITE);
             int messageCount = fld->getMessageCount();
 
-            std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(messageCount - 20, messageCount));
+            std::vector<std::shared_ptr<vmime::net::message>> allMessages = fld->getMessages(vmime::net::messageSet::byNumber(messageCount - 1, messageCount));
             fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
+
             // msg->getHeader()->hasField("to")
             // msg->getParsedMessage()->getBody()->getContentType().generate();
-            // msg->getParsedMessage()->getBody()->getEncoding().generate()
-            emit workFinished(allMessages);
+
+            std::reverse(allMessages.begin(), allMessages.end());
             for (auto msg : allMessages)
             {
-                break;
-                // fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
+
+                fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
+
+                vmime::utility::outputStreamAdapter out(std::cout);
+                vmime::messageParser parser(msg->getParsedMessage());
+                for (size_t i = 0; i < parser.getTextPartCount(); i++)
+                {
+                     const vmime::textPart &part = *parser.getTextPartAt(i);
+                     qDebug() << "\n######\n" << part.getType().generate() << "\n######\n";
+                     qDebug() <<
+                    //const vmime::textPart &tp = dynamic_cast<const vmime::textPart &>(part);
+                    //tp.getText()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+                    // if (part.getType().getSubType() == vmime::mediaTypes::TEXT_HTML)
+                    // {
+
+                    //     part.getText().get()->generate(out, msg->getParsedMessage()->getBody()->getEncoding());
+                    // }
+                    // else
+                    // {
+                    //     const vmime::textPart &tp = dynamic_cast<const vmime::textPart &>(part);
+                    //     tp.getText()->generate(out,msg->getParsedMessage()->getBody()->getEncoding());
+                    // }
+                }
+
+                std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
+                std::sregex_iterator emailIterator(senderMail.begin(), senderMail.end(), emailRegex);
+                std::sregex_iterator endIterator;
+
+                while (emailIterator != endIterator)
+                {
+                    std::smatch match = *emailIterator;
+                    senderMail = match.str();
+                    boost::trim(senderMail);
+                    ++emailIterator;
+                }
+                vmime::string senderMessagesubject = msg->getHeader()->Subject()->getValue()->generate().c_str();
+                // boost::trim(senderMessagesubject);
+
+                vmime::text senderMessagesubjectoutText;
+                vmime::text::decodeAndUnfold(senderMessagesubject, &senderMessagesubjectoutText);
+
+                dataLine.insert("id", "");
+                dataLine.insert("senderImage", "");
+                dataLine.insert("senderMail", senderMail);
+                dataLine.insert("Messagesubject", senderMessagesubjectoutText.getConvertedText(vmime::charset("utf-8")));
+                dataLine.insert("senderDate", "8 Oct");
+                dataLine.insert("MessageBody", "");
+                dataLine.insert("MessageType", "");
+                data.append(dataLine);
+                //  qDebug()<<"fetded"<<msg->getParsedMessage
                 // vmime_msg_test = msg->getHeader()->generate();
 
                 // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
@@ -196,16 +252,14 @@ protected:
                 //      qDebug()<< "\n############  done ##################\n";
                 //    }
             }
+            emit workFinished(data);
         }
         catch (...)
         {
 
             qDebug() << "Error while fetching try agian";
             run();
-
         }
-
-        // qDebug() << "end geting **********";
     }
 };
 

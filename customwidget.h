@@ -40,6 +40,7 @@ private:
     std::string Messagesubject;
     std::string senderDate;
     std::shared_ptr<vmime::component>  MessageBody;
+    std::string MessageType;
 
     bool stack_has_been_set = false;
     QStackedWidget *stk;

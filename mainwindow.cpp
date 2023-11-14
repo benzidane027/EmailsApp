@@ -11,7 +11,6 @@
 #include <QGraphicsRectItem>
 #include <regex>
 #include <iostream>
-#include <boost/algorithm/string.hpp>
 #include "loadingWidget/waitingspinnerwidget.h"
 
 std::string Email_str;
@@ -73,51 +72,20 @@ void MainWindow::getMails()
 
     th->start();
 
-    connect(th, &getMailThread::workFinished, this, [&](std::vector<std::shared_ptr<vmime::net::message>> resualt)
+    connect(th, &getMailThread::workFinished, this, [&](QList<QMap<std::string, std::string>> resualt)
             {
                 ui->stackedWidget_4->setCurrentIndex(1);
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
-                std::regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
-                std::reverse(resualt.begin(),resualt.end());
 
-                for (auto msg : resualt)
+                for (QMap<std::string, std::string> msg : resualt)
                 {
 
-                    std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
-                    std::sregex_iterator emailIterator(senderMail.begin(), senderMail.end(), emailRegex);
-                    std::sregex_iterator endIterator;
-
-                    while (emailIterator != endIterator)
-                    {
-                        std::smatch match = *emailIterator;
-                        senderMail= match.str();
-                        boost::trim(senderMail);
-                        ++emailIterator;
-                    }
-                    vmime::string senderMessagesubject = msg->getHeader()->Subject()->getValue()->generate().c_str();
-                    //boost::trim(senderMessagesubject);
-
-                    vmime::text senderMessagesubjectoutText ;
-                    vmime::text::decodeAndUnfold(senderMessagesubject,&senderMessagesubjectoutText);
-                    //qDebug() << senderMessagesubjectoutText.generate().c_str();
-                   // std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
-
-                    mQWidgetMessage *p = new mQWidgetMessage(senderMail, senderMessagesubjectoutText.getConvertedText(vmime::charset("utf-8")), "", "8 oct","msg_body");
+                    mQWidgetMessage *p = new mQWidgetMessage(msg.value("senderMail"), msg.value("Messagesubject"), "", msg.value("senderDate"),"msg_body");
                     p->TemplateDetails(ui->stackedWidget_3,ui->label_32,ui->label_33,ui->label_34,ui->label_35,ui->textBrowser);
-
                     lay->addWidget(p);
-                    qDebug()<<"";
-              // std::vector<std::shared_ptr<vmime::bodyPart>> bodyParts= msg->getParsedMessage()->getBody()->getPartList();
-                    // for (auto bodyPart: bodyParts){
-                    //   qDebug()<< "\n############  start ##################\n";
-                    //   qDebug()<<bodyPart->generate();
-                    //   qDebug()<< "\n############  done ##################\n";
-                    // }
 
                 }
                 qDebug() << "###done###"; });
-
-    // th.start();
 };
 void MainWindow::database()
 {
