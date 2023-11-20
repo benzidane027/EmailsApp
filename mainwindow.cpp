@@ -68,20 +68,20 @@ void MainWindow::getMails()
     spinner->setColor(QColor(87, 91, 97));
     spinner->start();
 
-    getMailThread *th = new getMailThread();
+    getMailsThread *th = new getMailsThread();
 
     th->start();
 
-    connect(th, &getMailThread::workFinished, this, [&](QList<QMap<std::string, std::string>> resualt)
+    connect(th, &getMailsThread::workFinished, this, [&](QList<QMap<std::string, std::string>> resualt)
             {
                 ui->stackedWidget_4->setCurrentIndex(1);
                 QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
 
                 for (QMap<std::string, std::string> msg : resualt)
                 {
-
+                    qDebug()<<msg.value("id").c_str();
                     mQWidgetMessage *p = new mQWidgetMessage(msg.value("senderMail"), msg.value("Messagesubject"), "", msg.value("senderDate"),"msg_body");
-                    p->TemplateDetails(ui->stackedWidget_3,ui->label_32,ui->label_33,ui->label_34,ui->label_35,ui->textBrowser);
+                    p->TemplateDetails(ui->widget_52,ui->stackedWidget_3,ui->label_32,ui->label_33,ui->label_34,ui->label_35,ui->textBrowser);
                     lay->addWidget(p);
 
                 }
@@ -212,7 +212,6 @@ void MainWindow::ValidateLogin()
         }
     }
 
-    // qDebug() << "emil: "<<Email_str<< "\n" <<"pass: "<<Pass_str;
 }
 void MainWindow::goToFormManaul()
 {

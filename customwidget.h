@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QTextBrowser>
 #include <vmime/vmime.hpp>
+#include "loadingWidget/waitingspinnerwidget.h"
 
 // #include <QtWaitingSpinner>
 class mQLable : public QLabel
@@ -39,12 +40,13 @@ private:
     std::string senderMail;
     std::string Messagesubject;
     std::string senderDate;
-    std::shared_ptr<vmime::component>  MessageBody;
+    std::shared_ptr<vmime::component> MessageBody;
     std::string MessageType;
 
     bool stack_has_been_set = false;
     QStackedWidget *stk;
 
+    QWidget *loadingPage;
     QLabel *userImageTemplate;
     QLabel *userNameTemplate;
     QLabel *emailsTemplate;
@@ -54,22 +56,33 @@ private:
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override
     {
-        stk->setCurrentIndex(0);
+        stk->setCurrentIndex(1);
+        WaitingSpinnerWidget *spinner = new WaitingSpinnerWidget(loadingPage);
+        spinner->setRoundness(70.0);
+        spinner->setMinimumTrailOpacity(15.0);
+        spinner->setTrailFadePercentage(70.0);
+        spinner->setNumberOfLines(12);
+        spinner->setLineLength(10);
+        spinner->setLineWidth(5);
+        spinner->setInnerRadius(10);
+        spinner->setRevolutionsPerSecond(1);
+        spinner->setColor(QColor(87, 91, 97));
+        spinner->start();
         this->subjectTemplate->setText(QString::fromStdString(this->Messagesubject));
         this->emailsTemplate->setText(QString::fromStdString(this->senderMail));
-       // qDebug()<<this->MessageBody->getContentType().generate();
     }
 
 public:
     mQWidgetMessage(std::string senderMail, std::string Messagesubject, std::string senderImage, std::string senderDate, std::string MessageBody, QWidget *parent = nullptr);
-    void TemplateDetails(QStackedWidget *_stk, QLabel *userImageTemplate,QLabel *userNameTemplate, QLabel *emailsTemplate, QLabel *subjectTemplate, QTextBrowser *bodyTemplate)
+    void TemplateDetails(QWidget *loadingPage, QStackedWidget *_stk, QLabel *userImageTemplate, QLabel *userNameTemplate, QLabel *emailsTemplate, QLabel *subjectTemplate, QTextBrowser *bodyTemplate)
     {
         this->stk = _stk;
-        this->userImageTemplate=userImageTemplate;
-        this->userNameTemplate=userNameTemplate;
-        this->emailsTemplate=emailsTemplate;
-        this->subjectTemplate=subjectTemplate;
-        this->bodyTemplate=bodyTemplate;
+        this->loadingPage = loadingPage;
+        this->userImageTemplate = userImageTemplate;
+        this->userNameTemplate = userNameTemplate;
+        this->emailsTemplate = emailsTemplate;
+        this->subjectTemplate = subjectTemplate;
+        this->bodyTemplate = bodyTemplate;
         stack_has_been_set = true;
     }
 };
