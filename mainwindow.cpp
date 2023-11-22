@@ -1,8 +1,9 @@
 #include "mainwindow.h"
-#include "customwidget.h"
+#include "widget/customwidget.h"
 #include "./ui_mainwindow.h"
 
-#include "model.h"
+#include "model/model.h"
+
 #include <QObject>
 #include <QPushButton>
 #include <QDebug>

@@ -8,8 +8,8 @@
 #include <vmime/vmime.hpp>
 #include <vmime/platforms/posix/posixHandler.hpp>
 
-#include "ENV.h"
-#include "customwidget.h"
+#include "../ENV.h"
+#include "../widget/customwidget.h"
 #include <boost/algorithm/string.hpp>
 #include <regex>
 

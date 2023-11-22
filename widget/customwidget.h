@@ -8,7 +8,8 @@
 #include <QVBoxLayout>
 #include <QTextBrowser>
 #include <vmime/vmime.hpp>
-#include "loadingWidget/waitingspinnerwidget.h"
+#include "../loadingWidget/waitingspinnerwidget.h"
+
 
 // #include <QtWaitingSpinner>
 class mQLable : public QLabel

@@ -7,7 +7,8 @@
                 "/usr/include/x86_64-linux-gnu/qt5",
                 "/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
                 "/usr/include/x86_64-linux-gnu/qt5/QtCore",
-                "/usr/include/x86_64-linux-gnu/qt5/QtGui"
+                "/usr/include/x86_64-linux-gnu/qt5/QtGui",
+                "${workspaceFolder}/build/email_app_autogen/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

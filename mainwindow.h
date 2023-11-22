@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <filesystem>
-#include "maillHandler.h"
+#include "model/maillHandler.h"
 #include <QWidget>
 
 

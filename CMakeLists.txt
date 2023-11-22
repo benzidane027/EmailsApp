@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "/home/rooot/Qt/6.5.2/gcc_64")
+
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
@@ -18,7 +20,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql )
 
 
 
-find_package(vmime)
+
 
 #find_package(Poco REQUIRED COMPONENTS Net )
 
@@ -28,13 +30,15 @@ find_package(vmime)
 set(PROJECT_SOURCES
 
         main.cpp
-        maillHandler.h
-        model.h
+        model/maillHandler.h
+        model/model.h
         ENV.h
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
 
+        widget/customwidget.h
+        widget/customwidget.cpp
         loadingWidget/waitingspinnerwidget.h
         loadingWidget/waitingspinnerwidget.cpp
 )
@@ -44,7 +48,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         login_image.qrc
-        customwidget.h customwidget.cpp
+
 
     )
 # Define target properties for Android with Qt 6 as:
