@@ -1,18 +1,5 @@
 #include "mainwindow.h"
-#include "widget/customwidget.h"
-#include "./ui_mainwindow.h"
 
-#include "model/model.h"
-
-#include <QObject>
-#include <QPushButton>
-#include <QDebug>
-#include <QString>
-#include <QPropertyAnimation>
-#include <QGraphicsRectItem>
-#include <regex>
-#include <iostream>
-#include "loadingWidget/waitingspinnerwidget.h"
 
 std::string Email_str;
 std::string Pass_str;
@@ -81,7 +68,7 @@ void MainWindow::getMails()
                 for (QMap<std::string, std::string> msg : resualt)
                 {
                     qDebug()<<msg.value("id").c_str();
-                    mQWidgetMessage *p = new mQWidgetMessage(msg.value("senderMail"), msg.value("Messagesubject"), "", msg.value("senderDate"),"msg_body");
+                    mQWidgetMessage *p = new mQWidgetMessage(msg.value("UID"),msg.value("senderMail"), msg.value("Messagesubject"), "", msg.value("senderDate"),"msg_body");
                     p->TemplateDetails(ui->widget_52,ui->stackedWidget_3,ui->label_32,ui->label_33,ui->label_34,ui->label_35,ui->textBrowser);
                     lay->addWidget(p);
 

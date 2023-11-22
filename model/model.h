@@ -29,10 +29,11 @@ private:
     Database()
     {
         qDebug() << "one one";
-        std::filesystem::path Path = std::filesystem::current_path();
+        namespace fs = std::filesystem;
+        fs::path Path = fs::current_path();
         std::string currentPath = Path.string();
         this->db = QSqlDatabase::addDatabase("QSQLITE", "conn01");
-        this->db.setDatabaseName(QString::fromStdString(currentPath + "/../mydatabase.db"));
+        this->db.setDatabaseName(QString::fromStdString(currentPath + "database/mydatabase.db"));
     }
 
 public:

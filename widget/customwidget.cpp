@@ -14,15 +14,14 @@ mQLable::mQLable(QWidget *parent) : QLabel(parent)
         ");
 }
 
-mQWidgetMessage::mQWidgetMessage(std::string senderMail, std::string Messagesubject, std::string senderImage, std::string senderDate,std::string MessageBody, QWidget *parent) : QWidget(parent)
+mQWidgetMessage::mQWidgetMessage(std::string UID,std::string senderMail, std::string Messagesubject, std::string senderImage, std::string senderDate,std::string MessageBody, QWidget *parent) : QWidget(parent)
 {
 
+    this->UID=UID;
     this->senderImage=senderImage;
     this->senderMail=senderMail;
     this->Messagesubject=Messagesubject;
     this->senderDate=senderDate;
-
-   // this->MessageBody= &MessageBody;
 
 
     setObjectName("mesageHeaderTemplate");

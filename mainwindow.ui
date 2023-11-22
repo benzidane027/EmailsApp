@@ -1103,7 +1103,7 @@ color:rgba(0,0,0,0.75)
                                   <rect>
                                    <x>10</x>
                                    <y>6</y>
-                                   <width>131</width>
+                                   <width>81</width>
                                    <height>41</height>
                                   </rect>
                                  </property>
@@ -1662,7 +1662,7 @@ border-radius: 10px;
                               <string notr="true">border:none;</string>
                              </property>
                              <property name="currentIndex">
-                              <number>2</number>
+                              <number>1</number>
                              </property>
                              <widget class="QWidget" name="page_5">
                               <layout class="QHBoxLayout" name="horizontalLayout_46">
@@ -2046,7 +2046,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
                                </item>
                               </layout>
                              </widget>
-                             <widget class="QWidget" name="page_9"/>
                              <widget class="QWidget" name="page_6">
                               <layout class="QHBoxLayout" name="horizontalLayout_43">
                                <item>
@@ -2064,12 +2063,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                                   </size>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">border:1px solid black;</string>
+                                  <string notr="true"/>
                                  </property>
                                 </widget>
                                </item>
                               </layout>
                              </widget>
+                             <widget class="QWidget" name="page_9"/>
                             </widget>
                            </item>
                           </layout>

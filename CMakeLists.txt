@@ -30,9 +30,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql )
 set(PROJECT_SOURCES
 
         main.cpp
-        model/maillHandler.h
+
+        model/mailhandler.h
         model/model.h
+
         ENV.h
+
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
