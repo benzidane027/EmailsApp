@@ -81,6 +81,7 @@ protected:
 
        connect(th, &fetchMailThread::workFinished, this, [&](QList<QMap<std::string, std::string>> resualt)
                {
+
                  stk->setCurrentIndex(0);
                 // QVBoxLayout *lay = new QVBoxLayout(ui->widget_49);
 
