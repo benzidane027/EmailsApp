@@ -10,15 +10,21 @@
 #include <boost/algorithm/string.hpp>
 #include <regex>
 
+const std::string MONTH[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
 QT_BEGIN_NAMESPACE
 namespace Mail
-{
+{   class MailBase;
     class sendMailThread;
     class getMailsThread;
     class fetchMailThread;
 
 }
 QT_END_NAMESPACE
+
+class MailBase{
+
+};
 
 class sendMailThread : public QThread
 {
@@ -208,7 +214,7 @@ protected:
     }
 };
 
-class fetchMailThread : public QThread
+class fetchMailThread : public QThread , public MailBase
 {
     Q_OBJECT
 
@@ -264,26 +270,49 @@ protected:
             fld->fetchMessages(allMessages, vmime::net::fetchAttributes::ENVELOPE);
 
             std::reverse(allMessages.begin(), allMessages.end());
+
             for (auto msg : allMessages)
             {
 
                 fld->fetchMessage(msg, vmime::net::fetchAttributes::STRUCTURE);
-                std::shared_ptr<vmime::contentHandler> obj = msg->getParsedMessage()->getBody()->getContents()->clone();
+                std::shared_ptr<vmime::contentHandler> messageBody = msg->getParsedMessage()->getBody()->getContents()->clone();
                 vmime::utility::outputStreamAdapter out(std::cout);
+
                 vmime::messageParser parser(msg->getParsedMessage());
+                qDebug() << "##########################################";
+                // obj->extract(out);
+                for (int i = 0; i < parser.getTextPartCount(); i++)
+                {
 
-                obj->extract(out);
-
-                std::string senderMail = msg->getHeader()->From()->getValue()->generate().c_str();
+                    // qDebug()<<;
+                    if (parser.getTextPartAt(i).get()->getType().getSubType() == vmime::mediaTypes::TEXT_PLAIN)
+                    {
+                        qDebug() << "********** start this is text ************************";
+                        parser.getTextPartAt(i)->getText()->extract(out);
+                        qDebug() << "********** end this is text ****************************";
+                    }
+                    else if (parser.getTextPartAt(i).get()->getType().getSubType() == vmime::mediaTypes::TEXT_HTML)
+                    {
+                        qDebug() << "********** start this is html ***************************";
+                        parser.getTextPartAt(i)->getText()->extract(out);
+                        qDebug() << "********** end this is html *****************************";
+                    }
+                    else
+                    {
+                        qDebug() << "********** start this is else ***************************";
+                        qDebug() << parser.getTextPartAt(i).get()->getType().generate().c_str();
+                        qDebug() << "********** start this is else ***************************";
+                    }
+                }
 
                 dataLine.insert("id", this->msgUID);
                 dataLine.insert("senderImage", "");
-                dataLine.insert("senderMail", senderMail);
+                dataLine.insert("senderMail", parser.getExpeditor().getEmail().generate().c_str());
 
-                dataLine.insert("senderDate", "8 Oct");
+                dataLine.insert("senderDate", std::to_string(parser.getDate().getDay()) + " " + MONTH[parser.getDate().getMonth()]);
                 dataLine.insert("MessageBody", "hello");
                 dataLine.insert("MessageType", "");
-                dataLine.insert("MessageCC", "CcMails");
+                dataLine.insert("MessageCC", parser.getRecipients().generate().c_str());
                 data.append(dataLine);
             }
             emit workFinished(data);
