@@ -206,10 +206,17 @@ protected:
             }
             emit workFinished(data);
         }
-        catch (...)
+         catch (vmime::exception& e)
         {
-            qDebug() << "Error while fetching try agian";
+            qDebug() << "Error on: vmime"<< e.what();
             run();
+        }
+        catch(std::exception& e){
+             qDebug() << "Error on: std"<< e.what();
+            run();
+        }
+        catch(...){
+             qDebug() << "Error on : unknown";
         }
     }
 };
@@ -317,11 +324,18 @@ protected:
             }
             emit workFinished(data);
         }
-        catch (...)
+        catch (vmime::exception& e)
         {
 
-            qDebug() << "Error while fetching try agian";
+            qDebug() << "Error on: vmime"<< e.what();
             run();
+        }
+        catch(std::exception& e){
+             qDebug() << "Error on: std"<< e.what();
+            run();
+        }
+        catch(...){
+             qDebug() << "Error on : unknown";
         }
     }
 };
