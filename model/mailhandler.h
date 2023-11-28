@@ -287,10 +287,10 @@ protected:
 
                 vmime::messageParser parser(msg->getParsedMessage());
                 qDebug() << "##########################################";
+                
                 // obj->extract(out);
                 for (int i = 0; i < parser.getTextPartCount(); i++)
                 {
-
                     // qDebug()<<;
                     if (parser.getTextPartAt(i).get()->getType().getSubType() == vmime::mediaTypes::TEXT_PLAIN)
                     {
@@ -320,6 +320,7 @@ protected:
                 dataLine.insert("MessageBody", "hello");
                 dataLine.insert("MessageType", "");
                 dataLine.insert("MessageCC", parser.getRecipients().generate().c_str());
+
                 data.append(dataLine);
             }
             emit workFinished(data);
