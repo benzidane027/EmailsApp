@@ -4,6 +4,6 @@
         "conan": {}
     },
     "include": [
-        "/home/rooot/Bureau/EmailsApp/build/CMakePresets.json"
+        "/home/rooot/Desktop/EmailsApp/build/CMakePresets.json"
     ]
 }
